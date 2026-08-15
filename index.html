@@ -342,7 +342,7 @@
 <script>
 const INSTITUTE_WHATSAPP_NUMBER = "923232145278";
 // Paste your Google Apps Script Web App URL here (see setup steps provided separately)
-const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbx2l6kRmL0xaXNywgt0KDK8MDKPZPbsk_ZdqPZVn5FQKDxUCKe84ny8udvizFDZ_rSJvA/exec";
+const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwToHs3jCAjtJll2HZrSbibJmM5fqU6hQv8ELWibGzSAXGgzxhIYjRAnjpugevSe4Exzw/exec";
 
 const form = document.getElementById('inquiryForm');
 form.addEventListener('submit', function(e){ e.preventDefault(); });
@@ -376,14 +376,6 @@ form.addEventListener('change', updateProgress);
 updateProgress();
 
 async function saveEntry(entry){
-  const key = 'entries:' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
-  let storedLocally = false;
-  try{
-    const result = await window.storage.set(key, JSON.stringify(entry), true);
-    storedLocally = !!result;
-  }catch(err){
-    console.error('Storage error while saving entry:', err);
-  }
   let storedInSheet = false;
   if (GOOGLE_SHEET_WEBHOOK_URL){
     try{
@@ -398,7 +390,7 @@ async function saveEntry(entry){
       console.error('Google Sheet webhook error:', err);
     }
   }
-  return storedLocally || storedInSheet;
+  return storedInSheet;
 }
 
 document.getElementById('send').addEventListener('click', async function(e){
