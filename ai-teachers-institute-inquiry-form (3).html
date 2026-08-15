@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Teachers Institute — Online Inquiry Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E2248;
+    --bg-deep:#081733;
+    --panel:#122A56;
+    --panel-2:#173465;
+    --chalk:#F4F6FB;
+    --chalk-dim:#A9B7DA;
+    --amber:#F5C518;
+    --amber-dim:#8C6E0A;
+    --teal:#8FB3F0;
+    --teal-dim:#26417A;
+    --line: rgba(244,246,251,0.13);
+    --danger:#E8836B;
+    --navy:#1F3A6B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 8%, rgba(143,179,240,0.10), transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(245,197,24,0.09), transparent 45%),
+      var(--bg-deep);
+    color:var(--chalk);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    padding:44px 20px 80px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+
+  .brandbar{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:28px;
+  }
+  .brandbar img{
+    width:64px;height:64px;
+    object-fit:contain;
+    border-radius:12px;
+    background:var(--panel);
+    padding:6px;
+    border:1px solid var(--line);
+    flex-shrink:0;
+  }
+  .brandbar .bname{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--chalk);
+    line-height:1.25;
+  }
+  .brandbar .btag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--amber);
+    letter-spacing:0.06em;
+    margin-top:2px;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:7px;height:7px;background:var(--teal);border-radius:50%;flex-shrink:0;}
+
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(30px,5vw,42px);
+    line-height:1.12;
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+  }
+  h1 span{color:var(--amber);}
+  .sub{
+    color:var(--chalk-dim);
+    font-size:15.5px;
+    line-height:1.6;
+    max-width:52ch;
+    margin:0 0 22px;
+  }
+
+  .chalkline{
+    height:1px;
+    background: repeating-linear-gradient(90deg, var(--line) 0 10px, transparent 10px 16px);
+    margin:0 0 34px;
+    position:relative;
+  }
+  .chalkline::after{
+    content:"";
+    position:absolute; top:-3px; left:0;
+    width:7px;height:7px;border-radius:50%;
+    background:var(--amber);
+    box-shadow: 120px 0 0 var(--teal-dim), 240px 0 0 var(--teal-dim);
+  }
+
+  .progress{
+    display:flex;
+    gap:6px;
+    margin-bottom:38px;
+  }
+  .progress i{
+    flex:1;
+    height:3px;
+    background:var(--panel-2);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .progress i b{
+    display:block;height:100%;width:0%;
+    background:var(--amber);
+    transition:width .25s ease;
+  }
+
+  form{display:flex; flex-direction:column; gap:26px;}
+
+  .q{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px 22px 22px;
+  }
+  .q-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--amber);
+    letter-spacing:0.06em;
+    display:block;
+    margin-bottom:8px;
+  }
+  label.q-label{
+    display:block;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:16.5px;
+    margin-bottom:14px;
+    color:var(--chalk);
+  }
+  .req{color:var(--teal); font-weight:400;}
+
+  input[type="text"], input[type="tel"]{
+    width:100%;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:9px;
+    color:var(--chalk);
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    padding:12px 14px;
+    outline:none;
+    transition:border-color .15s;
+  }
+  input::placeholder{color:#6C8380;}
+  input:focus{border-color:var(--teal);}
+
+  .options{display:flex; flex-wrap:wrap; gap:10px;}
+  .opt{position:relative;}
+  .opt input{position:absolute; opacity:0; width:0; height:0;}
+  .opt label{
+    display:block;
+    cursor:pointer;
+    padding:10px 16px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:14.5px;
+    color:var(--chalk-dim);
+    background:var(--panel-2);
+    transition:.15s;
+  }
+  .opt input:checked + label{
+    border-color:var(--amber);
+    color:var(--bg-deep);
+    background:var(--amber);
+    font-weight:500;
+  }
+  .opt label:hover{border-color:var(--teal);}
+
+  .err{
+    display:none;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--danger);
+    margin-top:10px;
+  }
+  .q.invalid .err{display:block;}
+  .q.invalid{border-color:var(--danger);}
+
+  .submit-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-top:6px;
+    flex-wrap:wrap;
+  }
+  button#send{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:16px;
+    background:var(--amber);
+    color:var(--bg-deep);
+    border:none;
+    border-radius:10px;
+    padding:15px 26px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:transform .12s;
+  }
+  button#send:hover{transform:translateY(-1px);}
+  button#send:active{transform:scale(0.98);}
+  .hint{
+    font-size:13px;
+    color:var(--chalk-dim);
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  .done{
+    display:none;
+    background:var(--panel);
+    border:1px solid var(--teal-dim);
+    border-radius:14px;
+    padding:22px;
+    margin-top:26px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13.5px;
+    color:var(--teal);
+    line-height:1.7;
+    white-space:pre-wrap;
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="progress" id="progress"></div>
+
+  <form id="inquiryForm" novalidate>
+
+    <div class="q" data-required="true">
+      <span class="q-num">01 // identity</span>
+      <label class="q-label" for="fullName">Full name <span class="req">*</span></label>
+      <input type="text" id="fullName" placeholder="e.g. Ayesha Khan" autocomplete="name">
+      <div class="err">Enter your full name.</div>
+    </div>
+
+    <div class="q" data-required="true">
+      <span class="q-num">02 // contact</span>
+      <label class="q-label" for="whatsapp">WhatsApp number <span class="req">*</span></label>
+      <input type="tel" id="whatsapp" placeholder="e.g. 03XX XXXXXXX" autocomplete="tel">
+      <div class="err">Enter a valid WhatsApp number.</div>
+    </div>
+
+    <div class="q" data-required="true">
+      <span class="q-num">03 // location</span>
+      <label class="q-label" for="city">City <span class="req">*</span></label>
+      <input type="text" id="city" placeholder="e.g. Karachi" autocomplete="address-level2">
+      <div class="err">Enter your city.</div>
+    </div>
+
+    <div class="q" data-required="true" data-group="educator">
+      <span class="q-num">04 // background</span>
+      <label class="q-label">Are you a teacher/educator? <span class="req">*</span></label>
+      <div class="options">
+        <div class="opt"><input type="radio" name="educator" id="ed-yes" value="Yes"><label for="ed-yes">Yes</label></div>
+        <div class="opt"><input type="radio" name="educator" id="ed-no" value="No"><label for="ed-no">No</label></div>
+      </div>
+      <div class="err">Please select an option.</div>
+    </div>
+
+    <div class="q" data-required="true" data-group="program">
+      <span class="q-num">05 // program</span>
+      <label class="q-label">Which program are you interested in? <span class="req">*</span></label>
+      <div class="options">
+        <div class="opt"><input type="radio" name="program" id="pg-1" value="Physical Boot Camp"><label for="pg-1">Physical Boot Camp</label></div>
+        <div class="opt"><input type="radio" name="program" id="pg-2" value="Online Boot Camp"><label for="pg-2">Online Boot Camp</label></div>
+        <div class="opt"><input type="radio" name="program" id="pg-3" value="August Special Offer"><label for="pg-3">August Special Offer</label></div>
+        <div class="opt"><input type="radio" name="program" id="pg-4" value="AI Emergency Workshop"><label for="pg-4">AI Emergency Workshop</label></div>
+      </div>
+      <div class="err">Please select a program.</div>
+    </div>
+
+    <div class="q">
+      <span class="q-num">06 // scheduling</span>
+      <label class="q-label" for="timing">Preferred timing</label>
+      <input type="text" id="timing" placeholder="e.g. weekday evenings, Sunday mornings">
+    </div>
+
+    <div class="q" data-required="true" data-group="joinWhen">
+      <span class="q-num">07 // urgency</span>
+      <label class="q-label">When do you want to join? <span class="req">*</span></label>
+      <div class="options">
+        <div class="opt"><input type="radio" name="joinWhen" id="jw-1" value="Immediately"><label for="jw-1">Immediately</label></div>
+        <div class="opt"><input type="radio" name="joinWhen" id="jw-2" value="This Week"><label for="jw-2">This Week</label></div>
+        <div class="opt"><input type="radio" name="joinWhen" id="jw-3" value="This Month"><label for="jw-3">This Month</label></div>
+        <div class="opt"><input type="radio" name="joinWhen" id="jw-4" value="Just Inquiring"><label for="jw-4">Just Inquiring</label></div>
+      </div>
+      <div class="err">Please select an option.</div>
+    </div>
+
+    <div class="q" data-required="true" data-group="infoNeeded">
+      <span class="q-num">08 // info needed</span>
+      <label class="q-label">What information do you need? <span class="req">*</span></label>
+      <div class="options">
+        <div class="opt"><input type="radio" name="infoNeeded" id="in-1" value="Fee"><label for="in-1">Fee</label></div>
+        <div class="opt"><input type="radio" name="infoNeeded" id="in-2" value="Timing"><label for="in-2">Timing</label></div>
+        <div class="opt"><input type="radio" name="infoNeeded" id="in-3" value="Course Details"><label for="in-3">Course Details</label></div>
+        <div class="opt"><input type="radio" name="infoNeeded" id="in-4" value="Complete Guidance"><label for="in-4">Complete Guidance</label></div>
+      </div>
+      <div class="err">Please select an option.</div>
+    </div>
+
+    <div class="submit-row">
+      <button type="button" id="send">Send on WhatsApp →</button>
+      <span class="hint">saves your response and opens WhatsApp</span>
+    </div>
+  </form>
+
+  <div class="done" id="done"></div>
+
+
+</div>
+
+<script>
+const INSTITUTE_WHATSAPP_NUMBER = "923232145278";
+// Paste your Google Apps Script Web App URL here (see setup steps provided separately)
+const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbx2l6kRmL0xaXNywgt0KDK8MDKPZPbsk_ZdqPZVn5FQKDxUCKe84ny8udvizFDZ_rSJvA/exec";
+
+const form = document.getElementById('inquiryForm');
+const progressEl = document.getElementById('progress');
+const questions = Array.from(form.querySelectorAll('.q'));
+
+questions.forEach(() => {
+  const bar = document.createElement('i');
+  bar.innerHTML = '<b></b>';
+  progressEl.appendChild(bar);
+});
+
+function updateProgress(){
+  questions.forEach((q, i) => {
+    const bar = progressEl.children[i].firstElementChild;
+    bar.style.width = isAnswered(q) ? '100%' : '0%';
+  });
+}
+
+function isAnswered(q){
+  const group = q.dataset.group;
+  if (group){
+    return !!q.querySelector('input[name="' + group + '"]:checked');
+  }
+  const input = q.querySelector('input[type="text"], input[type="tel"]');
+  return input ? input.value.trim().length > 0 : true;
+}
+
+form.addEventListener('input', updateProgress);
+form.addEventListener('change', updateProgress);
+updateProgress();
+
+async function saveEntry(entry){
+  const key = 'entries:' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+  let storedLocally = false;
+  try{
+    const result = await window.storage.set(key, JSON.stringify(entry), true);
+    storedLocally = !!result;
+  }catch(err){
+    console.error('Storage error while saving entry:', err);
+  }
+  let storedInSheet = false;
+  if (GOOGLE_SHEET_WEBHOOK_URL){
+    try{
+      await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify(entry)
+      });
+      storedInSheet = true;
+    }catch(err){
+      console.error('Google Sheet webhook error:', err);
+    }
+  }
+  return storedLocally || storedInSheet;
+}
+
+document.getElementById('send').addEventListener('click', async function(e){
+  let firstInvalid = null;
+
+  questions.forEach(q => {
+    if (q.dataset.required === 'true' && !isAnswered(q)){
+      q.classList.add('invalid');
+      if (!firstInvalid) firstInvalid = q;
+    } else {
+      q.classList.remove('invalid');
+    }
+  });
+
+  if (firstInvalid){
+    firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const sendBtn = document.getElementById('send');
+  sendBtn.disabled = true;
+  const originalLabel = sendBtn.textContent;
+  sendBtn.textContent = 'Saving…';
+
+  const fullName = document.getElementById('fullName').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const educator = form.querySelector('input[name="educator"]:checked').value;
+  const program = form.querySelector('input[name="program"]:checked').value;
+  const timing = document.getElementById('timing').value.trim();
+  const joinWhen = form.querySelector('input[name="joinWhen"]:checked').value;
+  const infoNeeded = form.querySelector('input[name="infoNeeded"]:checked').value;
+
+  const entry = {
+    fullName, whatsapp, city, educator, program, timing, joinWhen, infoNeeded,
+    submittedAt: new Date().toISOString()
+  };
+
+  const saved = await saveEntry(entry);
+
+  const lines = [
+    'AI Teachers Institute — new inquiry',
+    'Name: ' + fullName,
+    'WhatsApp: ' + whatsapp,
+    'City: ' + city,
+    'Teacher/Educator: ' + educator,
+    'Program: ' + program,
+    timing ? ('Preferred timing: ' + timing) : null,
+    'Wants to join: ' + joinWhen,
+    'Needs: ' + infoNeeded
+  ].filter(Boolean);
+
+  const message = lines.join('\n');
+  const doneEl = document.getElementById('done');
+  doneEl.style.display = 'block';
+  doneEl.textContent = '✓ Thank you! Your response has been submitted. Opening WhatsApp now…';
+
+  sendBtn.disabled = false;
+  sendBtn.textContent = originalLabel;
+
+  const target = INSTITUTE_WHATSAPP_NUMBER
+    ? 'https://wa.me/' + INSTITUTE_WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message)
+    : 'https://wa.me/?text=' + encodeURIComponent(message);
+
+  window.open(target, '_blank');
+});
+</script>
+</body>
+</html>
